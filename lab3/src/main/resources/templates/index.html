@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{styles.css}">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+</head>
+
+
+<body>
+
+<header class="header">
+    <a>Mascota</a>
+    <a th:href="@{/main}" style="cursor:pointer">Sedes</a>
+    <a>Numero 3</a>
+</header>
+
+<div style="display: flex; justify-content: center">
+
+    <div style="width:900px; margin-top:50px;">
+        <table id="miTabla" class="display">
+            <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Direccion</th>
+                <th>Telefono</th>
+                <th>Veterinarios</th>
+            </tr>
+            </thead>
+
+
+            <tbody>
+            <tr th:each="sede : ${lista}">
+                <td th:text="${sede.getNombre()}"></td>
+                <td th:text="${sede.getDireccion()}"></td>
+                <td th:text="${sede.getTelefono()}"></td>
+                <td><a href="/paciente/tracking"><button>Mostrar veterinarios</button></a></td>
+            </tr>
+            </tbody>
+        </table>
+
+
+
+    </div>
+
+
+</div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function() {
+        var table = $('#miTabla').DataTable({
+            "pageLength":5,
+            "lengthChange": false,
+            "language": {
+                "emptyTable": "No hay registros disponibles",
+                "zeroRecords": "No se encontraron registros coincidentes",
+                "infoEmpty": "Mostrando 0 a 0 de 0 entradas",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Último",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                },
+                "info": "Mostrando de _START_ a _END_ de _TOTAL_ entradas",
+            },
+
+        });
+
+        $('#filtroEstado').on('change', function() {
+            var estado = $(this).val();
+            table.column(2).search(estado).draw();
+
+        });
+
+        $('#limpiarFiltros').on('click', function() {
+            $('#filtroEstado').val('');
+            table.search('').columns().search('').draw();
+        });
+    });
+
+
+</script>
+
+</body>
+</html>
