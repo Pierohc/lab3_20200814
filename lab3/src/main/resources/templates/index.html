@@ -35,7 +35,7 @@
                 <td th:text="${sede.getNombre()}"></td>
                 <td th:text="${sede.getDireccion()}"></td>
                 <td th:text="${sede.getTelefono()}"></td>
-                <td><a href="/paciente/tracking"><button>Mostrar veterinarios</button></a></td>
+                <td><a th:href="@{/veterinario}"><button>Mostrar veterinarios</button></a></td>
             </tr>
             </tbody>
         </table>

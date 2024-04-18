@@ -13,6 +13,7 @@ public class VeterinarioController {
     @GetMapping(value="")
     public String veterinarios(){
 
+
         return "veterinarios";
     }
 
